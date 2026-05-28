@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sister! ❤️</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff7eb3;
+            --secondary: #ff758c;
+            --accent: #ffdf00;
+            --dark: #2d1b2e;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            /* Uploaded image directly used here */
+            --img-url: url('./RHW_9998.webp');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: 'Poppins', sans-serif;
+            background-color: #110715;
+            color: #fff;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #110715;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
+        }
+        .loader-heart {
+            font-size: 3.5rem;
+            animation: pulseHeart 1s infinite alternate;
+            text-shadow: 0 0 20px var(--primary);
+            color: var(--primary);
+        }
+        .loader-text {
+            margin-top: 25px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        .progress-bar-container {
+            width: 250px;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            margin-top: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            transition: width 0.1s linear;
+        }
+        .start-btn {
+            display: none;
+            margin-top: 35px;
+            padding: 12px 35px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeIn 1s forwards;
+            box-shadow: 0 0 15px rgba(255,126,179,0.3);
+            transition: all 0.3s;
+        }
+        .start-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 0 25px rgba(255,126,179,0.6);
+        }
+        
+        @keyframes pulseHeart {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Cinematic Background (Image) */
+        .hero-bg {
+            position: absolute;
+            inset: -5%; /* Slightly larger for ken burns pan/zoom */
+            background-image: var(--img-url);
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            animation: kenBurns 35s infinite alternate ease-in-out;
+            filter: blur(2px) contrast(1.05) brightness(0.9);
+        }
+        
+        @keyframes kenBurns {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.04) translate(-1%, 1%); }
+            100% { transform: scale(1.08) translate(1%, -1%); }
+        }
+
+        /* Overlays & Vignette */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(17, 7, 21, 0.35) 0%,
+                rgba(17, 7, 21, 0.6) 50%,
+                rgba(17, 7, 21, 0.9) 100%
+            );
+            z-index: 2;
+        }
+
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.85) 150%);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Light leaks / Glowing Orbs */
+        .light-leak {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.4;
+            z-index: 3;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            animation: floatOrbs 12s infinite alternate ease-in-out;
+        }
+        .orb-1 {
+            width: 350px; height: 350px;
+            background: rgba(255, 126, 179, 0.45);
+            top: -10%; left: -10%;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 450px; height: 450px;
+            background: rgba(161, 140, 209, 0.35);
+            bottom: -15%; right: -15%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes floatOrbs {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 60px) scale(1.2); }
+        }
+
+        /* Content Container */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 850px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 5vh;
+        }
+
+        /* Glassmorphism Title Box */
+        .title-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 3.5rem 2.5rem;
+            border-radius: 35px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.08);
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            color: #fff;
+            text-shadow: 0 0 25px rgba(255, 126, 179, 0.9), 2px 4px 15px rgba(0,0,0,0.8);
+            margin-bottom: 15px;
+            line-height: 1.2;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-style: italic;
+            color: #f8f8f8;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .floating-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 2rem;
+            font-style: italic;
+            animation: floatText 4s ease-in-out infinite;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            letter-spacing: 1px;
+        }
+
+        /* Particles container above hero */
+        #particles-js {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        /* Typing text */
+        .typing-container {
+            font-size: 1.4rem;
+            color: #fff;
+            min-height: 40px;
+            margin: 1.5rem 0 0 0;
+            font-weight: 400;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+            letter-spacing: 1px;
+        }
+
+        /* Special Button */
+        .special-btn {
+            padding: 16px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 126, 179, 0.4), inset 0 0 10px rgba(255,255,255,0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            margin-top: 1rem;
+        }
+        .special-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg);
+            animation: shine 4s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+        .special-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 126, 179, 0.6);
+        }
+
+        /* Music Button */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 126, 179, 0.5);
+            transition: all 0.3s ease;
+        }
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Sections Background */
+        .section-bg {
+            background: linear-gradient(135deg, #110715, #2a1124, #1a0b1c);
+            position: relative;
+            z-index: 1;
+            padding-bottom: 4rem;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 6rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 15px rgba(255, 126, 179, 0.6);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            padding: 0 1rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 70%);
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 126, 179, 0.2);
+            border-color: rgba(255, 126, 179, 0.3);
+        }
+        
+        .gallery-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px rgba(255, 126, 179, 0.8);
+        }
+
+        .glass-card h3 {
+            color: #fff;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+
+        .glass-card p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Countdown */
+        .countdown-section {
+            padding: 4rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .time-box {
+            width: 110px;
+            height: 110px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .time-box span {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 126, 179, 0.5);
+            line-height: 1;
+        }
+        
+        .time-box p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Popup */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .popup-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .popup-content {
+            width: 90%;
+            max-width: 700px;
+            background: rgba(20, 10, 25, 0.9);
+            border: 1px solid rgba(255, 126, 179, 0.3);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            transform: scale(0.8) translateY(30px);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(255, 126, 179, 0.2);
+            overflow: hidden;
+        }
+        
+        /* Inner popup image decoration (using same image softly) */
+        .popup-bg {
+            position: absolute;
+            inset: 0;
+            background-image: var(--img-url);
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            filter: blur(10px);
+            z-index: 0;
+        }
+
+        .popup-overlay.active .popup-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 1.8rem;
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+        
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .popup-inner-content {
+            position: relative;
+            z-index: 5;
+        }
+
+        .popup-message {
+            color: #fff;
+            font-size: 1.3rem;
+            line-height: 1.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            margin-top: 1rem;
+        }
+
+        /* Balloons CSS */
+        .balloons-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 20;
+            overflow: hidden;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 45px;
+            height: 60px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.2);
+            animation: flyUp 20s linear infinite;
+            opacity: 0.85;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        }
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid inherit;
+        }
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 40px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        @keyframes flyUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(15deg); opacity: 0; }
+        }
+
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: rgba(255,255,255,0.6);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            background: #110715;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer i {
+            color: #ff4757;
+            animation: pulseHeart 1s infinite alternate;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title-glass {
+                padding: 2.5rem 1.5rem;
+            }
+            .time-box {
+                width: 80px;
+                height: 80px;
+            }
+            .time-box span {
+                font-size: 2rem;
+            }
+            .time-box p {
+                font-size: 0.75rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-heart"><i class="fas fa-heart"></i></div>
+        <div class="loader-text">Loading Birthday Surprise...</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <!-- Fallback button if autoplay blocked -->
+        <button class="start-btn" id="startBtn">Tap to Enter</button>
+    </div>
+
+    <!-- Background Music Audio -->
+    <audio id="bgMusic" src="./birthday-song.mp3" loop></audio>
+
+    <!-- Floating Music Toggle -->
+    <button id="musicBtn" class="music-btn" title="Play/Pause Music">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <!-- CSS Balloons -->
+    <div class="balloons-container" id="balloons"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <!-- Cinematic Background layers -->
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-vignette"></div>
+        
+        <!-- Light Leaks -->
+        <div class="light-leak orb-1"></div>
+        <div class="light-leak orb-2"></div>
+        
+        <!-- Particles -->
+        <div id="particles-js"></div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="title-glass" data-aos="zoom-in-up" data-aos-duration="1500">
+                <h1 class="hero-title">Happy Birthday <br>My Dear Sister ❤️</h1>
+                <p class="hero-subtitle">"You are the most precious gift in my life."</p>
+                
+                <div class="typing-container">
+                    <span id="typed-text"></span>
+                </div>
+            </div>
+            
+            <button class="special-btn" onclick="openPopup()" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1000">
+                Special Message For You <i class="fas fa-envelope-open-text ml-2"></i>
+            </button>
+
+            <p class="floating-quote" data-aos="fade-in" data-aos-delay="1000" data-aos-duration="2000">
+                “A sister is a little bit of childhood that can never be lost ❤️”
+            </p>
+        </div>
+    </section>
+
+    <div class="section-bg">
+        <!-- Memories / Gallery Section -->
+        <section class="gallery-section">
+            <h2 class="section-title" data-aos="fade-down" data-aos-duration="1000">Beautiful Memories</h2>
+            <div class="gallery-grid">
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+                    <i class="fas fa-star gallery-icon"></i>
+                    <h3>Brightest Star</h3>
+                    <p>Your smile lights up every room you enter. Keep shining brightly always!</p>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+                    <i class="fas fa-heart gallery-icon"></i>
+                    <h3>Pure Heart</h3>
+                    <p>Your kindness and love make this world a beautiful place to live in.</p>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
+                    <i class="fas fa-crown gallery-icon"></i>
+                    <h3>My Princess</h3>
+                    <p>You deserve all the happiness, luxury, and wonderful things life has to offer.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Timer -->
+        <section class="countdown-section">
+            <h2 class="section-title" style="font-size: 2.5rem;" data-aos="zoom-in" data-aos-duration="1000">Celebrating Your Special Day</h2>
+            <div class="timer-container" id="countdown" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <p>Hours</p>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <p>Minutes</p>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <p>Seconds</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with <i class="fas fa-heart"></i> by Your Brother</p>
+    </footer>
+
+    <!-- Popup Message -->
+    <div class="popup-overlay" id="messagePopup">
+        <div class="popup-content">
+            <div class="popup-bg"></div>
+            <i class="fas fa-times close-btn" onclick="closePopup()"></i>
+            
+            <div class="popup-inner-content">
+                <h2 style="font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #fff; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">For My Sister</h2>
+                <p class="popup-message">
+                    Happy Birthday to the most amazing sister in the world! <br><br>
+                    Having you in my life is truly a blessing. Thank you for always being there, for the endless laughs, the shared secrets, and the beautiful memories. I promise to always protect you, support you, and be by your side. <br><br>
+                    May all your dreams come true and may your year be filled with endless joy, magic, and success. I love you to the moon and back! ❤️
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CDNs -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const loader = document.getElementById('loader');
+        const progressBar = document.getElementById('progressBar');
+        const startBtn = document.getElementById('startBtn');
+        let isPlaying = false;
+
+        // Music settings
+        bgMusic.volume = 0.3; // 30% volume
+
+        // 1. Loader & Music Autoplay Logic
+        window.addEventListener('load', () => {
+            let width = 0;
+            let interval = setInterval(() => {
+                width += 2;
+                progressBar.style.width = width + '%';
+                if(width >= 100) {
+                    clearInterval(interval);
+                    // Try to autoplay music
+                    let playPromise = bgMusic.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            // Autoplay allowed
+                            isPlaying = true;
+                            musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                            musicBtn.style.background = 'var(--primary)';
+                            musicBtn.style.borderColor = 'var(--primary)';
+                            hideLoaderAndInit();
+                        }).catch(error => {
+                            // Autoplay blocked by browser
+                            document.querySelector('.progress-bar-container').style.display = 'none';
+                            document.querySelector('.loader-text').innerText = 'Your Surprise is Ready!';
+                            startBtn.style.display = 'inline-block';
+                        });
+                    }
+                }
+            }, 30);
+        });
+
+        // Click to enter (if autoplay was blocked)
+        startBtn.addEventListener('click', () => {
+            bgMusic.play();
+            isPlaying = true;
+            musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            musicBtn.style.background = 'var(--primary)';
+            musicBtn.style.borderColor = 'var(--primary)';
+            hideLoaderAndInit();
+        });
+
+        document.addEventListener("click", () => {
+            bgMusic.play();
+            if (!isPlaying) {
+                isPlaying = true;
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                musicBtn.style.background = 'var(--primary)';
+                musicBtn.style.borderColor = 'var(--primary)';
+            }
+        }, { once: true });
+
+        function hideLoaderAndInit() {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                fireConfetti();
+            }, 1500);
+        }
+
+        // 2. Initialize AOS (Scroll Animations)
+        AOS.init({
+            once: false,
+            mirror: true,
+            offset: 50
+        });
+
+        // 3. Particles.js configuration (Stars & Hearts effect)
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 70, "density": { "enable": true, "value_area": 1000 } },
+                "color": { "value": ["#ffffff", "#ff7eb3", "#ffdf00"] },
+                "shape": { "type": ["circle", "star"] },
+                "opacity": { 
+                    "value": 0.8, 
+                    "random": true, 
+                    "anim": { "enable": true, "speed": 1, "opacity_min": 0.2, "sync": false } 
+                },
+                "size": { 
+                    "value": 4, 
+                    "random": true, 
+                    "anim": { "enable": true, "speed": 2, "size_min": 0.5, "sync": false } 
+                },
+                "line_linked": { "enable": false },
+                "move": { 
+                    "enable": true, 
+                    "speed": 1.5, 
+                    "direction": "top", 
+                    "random": true, 
+                    "straight": false, 
+                    "out_mode": "out", 
+                    "bounce": false 
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { 
+                    "onhover": { "enable": true, "mode": "bubble" }, 
+                    "onclick": { "enable": true, "mode": "repulse" }, 
+                    "resize": true 
+                },
+                "modes": { 
+                    "bubble": { "distance": 200, "size": 6, "duration": 2, "opacity": 1, "speed": 3 },
+                    "repulse": { "distance": 200, "duration": 0.4 }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // 4. Typing Animation
+        var typed = new Typed('#typed-text', {
+            strings: [
+                "Wishing you a day filled with happiness! 💖",
+                "May all your dreams come true! ✨",
+                "You are my favorite person in the world! 🌸",
+                "Let's celebrate your magical day! 🎂"
+            ],
+            typeSpeed: 60,
+            backSpeed: 30,
+            loop: true,
+            backDelay: 2500,
+            showCursor: true,
+            cursorChar: '|'
+        });
+
+        // 5. Generate CSS Balloons dynamically
+        const balloonsContainer = document.getElementById('balloons');
+        const balloonColors = ['#ff758c', '#ff7eb3', '#a18cd1', '#fbc2eb', '#ffdf00', '#00f2fe'];
+        
+        for(let i=0; i<12; i++) {
+            let balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            let leftPos = Math.random() * 100;
+            let animDuration = 15 + Math.random() * 15;
+            let animDelay = Math.random() * 10;
+            let bgColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            
+            balloon.style.left = leftPos + '%';
+            balloon.style.animationDuration = animDuration + 's';
+            balloon.style.animationDelay = animDelay + 's';
+            balloon.style.backgroundColor = bgColor;
+            
+            // Randomly flip balloon tail
+            if(Math.random() > 0.5) {
+                balloon.style.transform = "scaleX(-1)";
+            }
+            
+            balloonsContainer.appendChild(balloon);
+        }
+
+        // 6. Confetti Effect Function
+        function fireConfetti() {
+            var duration = 4 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                }));
+                confetti(Object.assign({}, defaults, { particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                }));
+            }, 250);
+        }
+
+        // 7. Background Music Toggle
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+                musicBtn.style.background = 'rgba(0, 0, 0, 0.5)';
+                musicBtn.style.borderColor = 'rgba(255,255,255,0.2)';
+            } else {
+                bgMusic.play();
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                musicBtn.style.background = 'var(--primary)';
+                musicBtn.style.borderColor = 'var(--primary)';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // 8. Popup Logic
+        function openPopup() {
+            document.getElementById('messagePopup').classList.add('active');
+            fireConfetti(); 
+        }
+
+        function closePopup() {
+            document.getElementById('messagePopup').classList.remove('active');
+        }
+
+        // 9. Simple Countdown
+        function updateTimer() {
+            const now = new Date();
+            const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const diff = now - startOfDay; 
+            
+            let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            let minutes = Math.floor((diff / 1000 / 60) % 60);
+            let seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+    </script>
+</body>
+</html>
